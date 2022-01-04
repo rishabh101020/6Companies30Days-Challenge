@@ -1,0 +1,109 @@
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+// User function Template for C++
+
+class Solution{
+public:
+    string decodedString(string s){
+        
+        stack<char> t;
+        stack<pair<int,int>> m;
+        string res;
+        int q,c=0;
+        
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]-'a' >= 0 && s[i]-'z' <= 0)
+            {
+                q = i;
+                c = 1;
+                
+                res.push_back(s[i]);
+                
+                if(i-1 >=0  && s[i-1] == '[')
+                    m.push({res.length()-1,0});
+                
+                i++;
+                while(i <s.length() && s[i]-'a' >= 0 && s[i]-'z' <= 0)
+                {
+                    res.push_back(s[i]);
+                    c++;
+                    i++;
+                }
+                
+                if(i<s.length())
+                    i--;
+                    
+                // m.push({q,c});
+            }
+            
+            else
+            {
+                if(s[i] != ']')
+                    t.push(s[i]);
+                
+                else
+                {
+                    // char b = s.top();
+                    t.pop();
+                    string num;
+                    while(t.size() > 0 && t.top() != '[')
+                    {
+                        num.push_back(t.top());
+                        t.pop();
+                    }
+                    reverse(num.begin(),num.end());
+                    
+                    int b = stoi(num);
+                    
+                    
+                    if(m.size() > 0)
+                    {   
+                        pair<int,int> p = m.top();
+                        m.pop();
+                        
+                        string toap = res.substr(p.first,res.length()-p.first);
+                        for(int g = 1;g<b;g++)
+                        {
+                            res.append(toap);
+                        }
+                    }
+                    else
+                    {
+                        string toap = res.substr(0,res.length());
+                        for(int g = 1;g<b;g++)
+                        {
+                            res.append(toap);
+                        }
+                    }
+                    
+                    
+                }
+            }
+        }
+        
+        return res;
+        
+        
+        
+    }
+};
+
+// { Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        
+        Solution ob;
+        cout<<ob.decodedString(s)<<"\n";
+    }
+    return 0;
+}  // } Driver Code Ends
