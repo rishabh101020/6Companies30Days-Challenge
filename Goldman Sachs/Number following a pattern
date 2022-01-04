@@ -1,0 +1,111 @@
+#include<bits/stdc++.h> 
+using namespace std; 
+
+ // } Driver Code Ends
+class Solution{   
+public:
+    string printMinNumberForPattern(string s){
+        char mn = '1';
+        int count=0;
+        
+        string res(s.length()+1,'a');
+        
+        // cout<<res<<endl;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i] == 'I')
+            {
+                if(res[i] == 'a')
+                {
+                    // cout<<mn<<endl;
+                    res[i] = mn;
+                    // cout<<res<<endl;
+                    mn++;
+                }
+                
+                if(i+1 < s.length())
+                {
+                    if(s[i+1] == 'I')
+                    {
+                        res[i+1] = mn;
+                        
+                    //cout<<res<<endl;
+                        mn++;
+                    }
+                    else
+                    {
+                        count  = 0;
+                        int j = i;
+                        
+                        while((j+1) < s.length() && s[j+1] == 'D')
+                        {
+                            j++;
+                            count++;
+                        }
+                        int k = j;
+                        for(j++;j>i;j--)
+                        {
+                            res[j] = mn;
+                            
+                    //cout<<res<<endl;
+                            mn++;
+                        }
+                        
+                        i = k;
+                    }
+                }
+                else
+                {
+                    res[i+1] = mn;
+                    
+                    //cout<<res<<endl;
+                    mn++;
+                }
+                
+            }
+            else
+            {
+                // //cout<<"fdfd\n";
+                count  = 0;
+                int j = i;
+                
+                while((j+1) < s.length() && s[j+1] == 'D')
+                {
+                    // //cout<<"ffd\n";
+                    j++;
+                    count++;
+                }
+                int k = j;
+                for(j++;j>=i;j--)
+                {
+                    // //cout<<"fdd\n";
+                    res[j] = mn;
+                    
+                    //cout<<res<<endl;
+                    mn++;
+                }
+                
+                i = k;
+            }
+        }
+        
+        return res;
+    }
+};
+
+
+// { Driver Code Starts.
+int main() 
+{ 
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        string S;
+        cin >> S;
+        Solution ob;
+        cout << ob.printMinNumberForPattern(S) << endl;
+    }
+    return 0; 
+} 
+  // } Driver Code Ends
