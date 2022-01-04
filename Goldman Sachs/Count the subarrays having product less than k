@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+ // } Driver Code Ends
+
+/*
+57 116
+83 93 12 36 54 64 9 63 69 96 99 61 69 77 10 74 4 88 55 74 58 82 24 30 97 45 43 81 13 10 56 48 55 67 35 60 82 43 74 2 39 72 14 59 100 23 85 56 62 91 81 72 24 4 1  21 1
+*/
+class Solution{
+  public:
+    int countSubArrayProductLessThanK(const vector<int>& a, int n, long long k) {
+        
+        int i=0,j=0,f = 1;
+        long long sum = 1,rem =0,ans = 0;
+        
+        while(j<n)
+        {
+            sum = sum * a[j];
+            
+            if(sum < k)
+            {
+                // if(i == -1)
+                //     i = 0;
+                f = 1;
+                j++;
+            }
+            else
+            {
+                f =0;
+                ans = ans + ((j-1-i-rem+1)*((j-1-i-rem+1)+1))/2 + (rem * (j-1-i-rem+1));
+                
+                // if(i == -1)
+                //     i = 0;
+                // cout<<ans<<endl;
+                // count =0;
+                while(i<=j && sum >=k)
+                {
+                    sum = sum / a[i];
+                    i++;
+                    // count++;
+                }
+                
+                if(j >= i)
+                // {
+                    rem = j-i;
+                    // ans = ans + 1+((j-1-i+1)*((j-1-i+1)+1))/2;
+                    // cout<<ans<<endl;
+                // }
+                
+                else
+                    rem = 0;
+                
+                j++; 
+            }
+            
+        }
+        
+        // if(f)
+        // {  
+            
+            ans = ans + ((j-1-i-rem+1)*((j-1-i-rem+1)+1))/2 + (rem * (j-1-i-rem+1));
+            // cout<<ans<<endl;
+            
+        // }
+        return ans;
+    }
+};
+
+// { Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, i;
+        long long int k;
+        cin >> n >> k;
+        vector<int> arr(n);
+        for (i = 0; i < n; i++) cin >> arr[i];
+        Solution obj;
+        cout << obj.countSubArrayProductLessThanK(arr, n, k) << endl;
+    }
+    return 0;
+}
+  // } Driver Code Ends
