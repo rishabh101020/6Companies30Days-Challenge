@@ -1,0 +1,64 @@
+class Solution {
+public:
+    string gcdOfStrings(string s, string t) {
+        if(s.compare(t) == 0)
+            return s;
+        else if(s.length() == t.length())
+            return "";
+        else if(s.length() < t.length())
+            swap(s,t);
+        
+        int i = t.length(),j=1;
+        
+        while(t.length() % j != 0)
+                    j++;
+        i = t.length()/j;
+        while(i > 0)
+        {
+            cout<<i<<' '<<j<<endl;
+            if(s.length() % i == 0)
+            {
+                bool ans = true;
+                for(int a = i;a<t.length();a++)
+                {
+                    if(t[a] != t[a%i])
+                    {
+                        ans = false;
+                        break;
+                    }
+                }
+                
+                if(ans)
+                {
+                    for(int a = i;a<s.length();a++)
+                    {
+                        if(s[a] != s[a%i])
+                        {
+                            ans = false;
+                            break;
+                        }
+                    }
+                }
+                
+                if(ans)
+                    return s.substr(0,i);
+            }
+            // else
+            // {
+            //     i = t.length()/j;
+            //     while(s.length() % j != 0)
+            //         j++;
+            // }
+            j++;
+            while(j<t.length() && t.length() % j != 0)
+                    j++;
+            
+            if(j>t.length())
+                break;
+            i = t.length()/j;
+            
+        }
+        
+        return "";  
+    }
+};
