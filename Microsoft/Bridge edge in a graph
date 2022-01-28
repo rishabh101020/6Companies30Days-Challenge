@@ -1,0 +1,56 @@
+class Solution
+{
+	public:
+    //Function to find if the given edge is a bridge in graph.
+    
+    int bfs(int V, vector<int> adj[])
+    {
+        int ncc = 0;
+        
+        vector<int> v(V,0);
+        queue<int> q;
+        
+        for(int i=0;i<V;i++)
+        {
+            if(v[i] == 0)
+            {
+                ncc++;
+                
+                q.push(i);
+                v[i] = 1;
+                
+                while(!q.empty())
+                {
+                    int t = q.front();
+                    q.pop();
+                    
+                    for(auto i:adj[t])
+                    {
+                        if(v[i] == 0)
+                        {
+                            v[i] = 1;
+                            q.push(i);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ncc;
+    }
+    int isBridge(int V, vector<int> adj[], int c, int d) 
+    {      
+        int oncc = bfs(V,adj);
+        
+        adj[c].erase(find(adj[c].begin(),adj[c].end(),d));
+        adj[d].erase(find(adj[d].begin(),adj[d].end(),c));
+        
+        int nncc = bfs(V,adj);
+        
+        if(nncc == oncc)
+            return 0;
+        else
+            return 1;
+        
+    }
+};
