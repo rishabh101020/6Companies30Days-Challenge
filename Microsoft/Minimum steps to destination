@@ -1,0 +1,65 @@
+class Solution{
+public:
+
+    int minSteps(int t){
+        
+        int sum = 0,i=0;
+        
+        while(sum <t)
+        {
+            i++;
+            sum = sum +i;
+        }
+        
+        if(sum == t)
+            return i;
+            
+        else
+        {
+            if((sum - t) %2 == 0)
+            {
+                return i;
+            }
+            else
+            {
+                if(i %2  == 1)
+                {
+                    return i+2;
+                }
+                else
+                {
+                    return i+1;
+                }
+            }
+        }
+        
+        /* Brute Force */
+        
+        // vector<int> d= vector<int>(10001,INT_MAX);
+        // int val = 1;
+        // vector<int> old{0};
+        
+        // while(d[t] == INT_MAX)
+        // {
+        //     vector<int> n;
+            
+        //     for(int i=0;i<old.size();i++)
+        //     {
+        //         n.push_back(old[i]+val);
+        //         if(n.back() >=0 && d[n.back()] > val)
+        //             d[n.back()] = val; 
+                
+        //         n.push_back(old[i]-val);
+        //         if(n.back() >=0 && d[n.back()] > val)
+        //             d[n.back()] = val;                
+                
+        //     }
+            
+        //     val++;
+            
+        //     old = n;
+        // }
+        
+        // return d[t];
+    }
+};
