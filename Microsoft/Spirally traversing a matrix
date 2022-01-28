@@ -1,0 +1,57 @@
+class Solution
+{   
+    public: 
+    //Function to return a list of integers denoting spiral traversal of matrix.
+    vector<int> spirallyTraverse(vector<vector<int> > mat, int r, int c) 
+    {
+        
+        int tl = 0,tr = c-1,t=0,b=r-1;
+        vector<int> v;
+        while(tl<=tr || t<=b)
+        {
+            if(t<=b)
+            {
+                for(int i=tl ; i<=tr;i++)
+                {
+                    // cout<<mat[t][i]<<' ';
+                    v.push_back(mat[t][i]);
+                }
+                
+                t++;
+            }
+            
+            if(tl <= tr)
+            {
+                for(int i = t;i<=b;i++)
+                {
+                    v.push_back(mat[i][tr]);
+                }
+                
+                tr--;
+            }
+            
+            if(t<=b)
+            {
+                for(int i=tr ; i>=tl;i--)
+                {
+                    // cout<<mat[t][i]<<' ';
+                    v.push_back(mat[b][i]);
+                }
+                
+                b--;
+            }
+            
+            if(tl <= tr)
+            {
+                for(int i = b;i>=t;i--)
+                {
+                    v.push_back(mat[i][tl]);
+                }
+                
+                tl++;
+            }
+        }
+        
+        return v;
+    }
+};
